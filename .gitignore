@@ -3,5 +3,6 @@
 !Makefile
 !.gitignore
 !srcs
+!srcs/**
 .oh-my-zsh/
 
