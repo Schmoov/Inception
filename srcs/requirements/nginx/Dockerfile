@@ -1,11 +1,9 @@
 FROM alpine:3.22
 
-RUN apk add --no-cache nginx
+RUN apk add --no-cache nginx openssl
 
-#COPY html /usr/share/nginx/html
-COPY site.conf /etc/nginx/http.d/default.conf 
+COPY ./tools/entrypoint.sh /
 
+RUN chmod +x /entrypoint.sh
 
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/entrypoint.sh"]
