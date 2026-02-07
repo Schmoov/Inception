@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 mkdir -p $WEB_DIR
 cd $WEB_DIR
@@ -28,4 +28,4 @@ wp plugin update --all --allow-root
 
 wp redis enable --allow-root
 
-exec php-fpm -F
+/usr/sbin/php83-fpm -F
