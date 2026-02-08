@@ -4,6 +4,7 @@ mkdir -p $WEB_DIR
 cd $WEB_DIR
 rm -rf *
 
+sed -i 's/^memory_limit\s*=.*/memory_limit = 512M/' /etc/php83/php.ini
 wp core download --allow-root
 mv wp-config-sample.php wp-config.php
 
@@ -28,4 +29,4 @@ wp plugin update --all --allow-root
 
 wp redis enable --allow-root
 
-/usr/sbin/php83-fpm -F
+/usr/sbin/php-fpm83 -F

@@ -8,20 +8,35 @@ services:
       - "443:443"
     depends_on:
       - wordpress
-    restart: always
     networks:
       - webnet
+    #restart: always
 
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
-    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
     networks:
       - webnet
+    #restart: always
+
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    env_file:
+      - .env
+    networks:
+      - webnet
+    #restart: always
 
 volumes:
   wordpress:
     name: wordpress
+  mariadb:
+    name: mariadb
 
 networks:
   webnet:
