@@ -21,6 +21,8 @@ services:
       - mariadb
     networks:
       - webnet
+    volumes:
+      - wordpress:/var/www/html
     #restart: always
 
   mariadb:

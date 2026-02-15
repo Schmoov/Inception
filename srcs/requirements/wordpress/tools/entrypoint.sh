@@ -11,6 +11,7 @@ mv wp-config-sample.php wp-config.php
 wp config set DB_NAME $DB --allow-root
 wp config set DB_USER $DB_USR --allow-root
 wp config set DB_PASSWORD $DB_PWD --allow-root
+wp config set DB_HOST $DB_HOST --allow-root
 
 wp core install \
     --url=$DOMAIN \

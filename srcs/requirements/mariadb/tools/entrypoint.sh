@@ -1,14 +1,18 @@
 #!/bin/sh
 
+if [ ! -e /etc/.firstrun ]; then
+    cat << EOF >> /etc/my.cnf.d/mariadb-server.cnf
+[mysqld]
+bind-address=0.0.0.0
+skip-networking=0
+EOF
+    touch /etc/.firstrun
+fi
+
 mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
-mariadbd --user=mysql --skip-networking &
-pid="$!"
+mariadbd --user=mysql
 
-# Wait until MariaDB is ready
-until mariadb-admin ping --silent; do
-    sleep 1
-done
 
 # Create database and user
 mariadb -u root <<EOF
@@ -19,9 +23,5 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '12345';
 FLUSH PRIVILEGES;
 EOF
 
-# Stop background server
-kill "$pid"
-wait "$pid"
 
-# Start MariaDB in foreground (proper Docker behavior)
-exec mariadbd --user=mysql
+exec mysqld_safe
